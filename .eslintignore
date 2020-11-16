@@ -1,0 +1,6 @@
+/src/lib
+/.vscode
+/node_modules
+**/img-collect.js
+rea.js
+jsencrypt.js

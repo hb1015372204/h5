@@ -1,0 +1,59 @@
+{
+  "name": "h5",
+  "author": "huangbo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "d": "node config/dev.js",
+    "b": "node config/build.js",
+    "mk:tep": "node layout/template"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "core-js": "^3.4.3",
+    "postcss-plugin-px2rem": "^0.8.1",
+    "postcss-scss": "^3.0.4",
+    "vant": "^2.10.13",
+    "vue": "^2.6.10",
+    "vue-meta": "^2.3.1",
+    "vue-router": "^3.4.8",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "glob": "^7.1.6",
+    "lib-flexible": "^0.3.2",
+    "node-sass": "^5.0.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "sass-loader": "^10.0.5",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
