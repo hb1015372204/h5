@@ -18,24 +18,24 @@
 			</div>
 		</div>
 		<p>今日还可抽奖{{num}}次</p>
-		<ul>
-			<li v-for="(item, index) in histList" :key="index">
-				<span>{{item.result}}</span>
-				<span>{{item.createTime.substr(0, 10)}}</span>
-			</li>
-		</ul>
 	</div>
 
   </div>
 </template>
 
 <script>
-import API from '../api/h5API'
 import { Dialog } from 'vant';
 export default {
+    // name: "prizeDraw",
+    // metaInfo: {
+    //     title: 'prizeDraw',
+    //     meta: [
+    //       { charset: 'utf-8' },
+    //       { vmid: 'description', name: 'description', content: 'prizeDraw是描述！！！' }
+    //     ]
+    // },
     data() {
 			return {
-				histList: [],
 				prize_list: [{
 						icon: '', //require("../../../../static/WX/img/wheel_big_5.png"), // 奖品图片
 						count: 5, // 奖品级别
@@ -98,16 +98,7 @@ export default {
 				item: {}
 			}
 		},
-		mounted() {
-			this.historyList();
-		},
 		methods: {
-			async historyList() {
-				const res = await API.drawHistory({});
-				if(res.errcode == '0') {
-					this.histList = res.list;
-				}
-			},
 			rotating(index) {
 				if (!this.click_flag) return;
 				var type = 0; // 默认为 0  转盘转动 1 箭头和转盘都转动(暂且遗留)

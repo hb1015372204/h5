@@ -6,7 +6,7 @@
                 <p class="tcenter">{{item.name}}</p>
                 <div class="op">
                     <span @click="handleLike(item)">♥</span>
-                    <span>{{item.likeNum}}</span>
+                    <span>{{item.num}}</span>
                 </div>
             </li>
         </ul>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
-import API from '../../api/h5API'
 import New from './new.vue'
 import Ticket from './ticket.vue'
 export default {
@@ -29,34 +27,22 @@ export default {
     },
     data() {
         return {
-            list: [],
-            pages: {
-                sort: 0,
-                page: 1,
-                pageSize: 20
-            },
+            list: [
+                {id: 1, pic:'', name:'用户昵称', num: 100},
+                {id: 2, pic:'', name:'用户昵称', num: 100},
+                {id: 3, pic:'', name:'用户昵称', num: 100},
+                {id: 4, pic:'', name:'用户昵称', num: 100},
+                {id: 5, pic:'', name:'用户昵称', num: 100},
+            ],
             show: false
         }
     },
     mounted() {
-        this.getEmblemList();
+
     },
     methods: {
-        async getEmblemList(){
-            const res = await API.getEmblemList(this.pages);
-            if(res.errcode == 0) {
-                this.list = res.list;
-            }else{
-                Toast(res.errmsg);
-            }
-        },
-        async handleLike(val) {
-            const res = await API.emblemLike({voteId: val.id});
-            if(res.errcode == 0) {
-                this.show = true;
-            }else{
-                Toast(res.errmsg);
-            }
+        handleLike(val) {
+            this.show = true;
         },
         handleForward() {
             this.show = false;

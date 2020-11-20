@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="btn-op">
-            <p>已有<b>{{dogEmblemJoinNum}}</b>人参与</p>
+            <p>已有<b>100009</b>人参与</p>
             <div  @click="goUpload">我要上传</div>
             <div @click="goLike">我要点赞</div>
         </div>
@@ -13,13 +13,11 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
-import API from '../api/h5API'
 import relapp from '@/utils/relApp'
 export default {
     data() {
         return {
-            dogEmblemJoinNum: ''
+
         }
     },
     created() {
@@ -33,28 +31,16 @@ export default {
     },
     mounted() {
         console.log(dsBridge)
-        this.init();
     },
     methods: {
-        async init() {
-           const res = await API.getDogInfo();
-           if(res.errcode == '0') {
-               this.dogEmblemJoinNum = res.object.dogEmblemJoinNum;
-           }
-        },
         goUpload() {
           this.$router.push({ path: '/uploadImage'});
         },
         goLike() {
           this.$router.push({ path: '/matchList'});
         },
-        async goShare() {
-           const res = await API.emblemShare();
-           if(res.errcode == '0') {
+        goShare() {
             // relapp.appRightShare("haval://app/home/main");
-           }else{
-                Toast(res.errmsg);
-           }
         },
     }
 }

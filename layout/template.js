@@ -50,7 +50,6 @@ process.chdir(`${basePath}/projects/${dirName}`) // cd views
 fs.writeFileSync(`App.vue`, temp.AppVueTep) // vue 
 fs.writeFileSync(`main.js`, temp.mainTep)
 fs.writeFileSync(`router.js`, temp.routerTep)
-fs.mkdirSync(`${basePath}/projects/${dirName}/api`)
 fs.mkdirSync(`${basePath}/projects/${dirName}/assets`)
 fs.mkdirSync(`${basePath}/projects/${dirName}/components`)
 fs.mkdirSync(`${basePath}/projects/${dirName}/page`)

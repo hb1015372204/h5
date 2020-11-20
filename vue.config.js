@@ -10,4 +10,11 @@ module.exports = {
   devServer: {
     open: true
   }
+  // css: {
+  //   loaderOptions: {
+  //     sass: {
+  //       prependData: `@import '@/styles/_variable.scss';`
+  //     }
+  //   }
+  // }
 };

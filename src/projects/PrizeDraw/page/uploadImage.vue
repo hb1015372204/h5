@@ -1,7 +1,7 @@
 <template>
   <div class="container cont">
     <div class="box-upload">
-      <van-uploader v-model="fileList" multiple :max-count="3">
+      <van-uploader>
           <van-button icon="plus" class="upload-pic"></van-button>
       </van-uploader>
     </div>
@@ -14,38 +14,29 @@
 </template>
 
 <script>
-import {fetch} from '@/api/http'
-import API from '../api/h5API'
-import { Dialog, Toast } from 'vant';
+import { Dialog } from 'vant';
 import jse from '@/utils/jsencrypt'
 export default {
     data() {
         return {
-          fileList:[]
         }
     },
     mounted() {
+        let asdad = jse.encrypt('哈哈哈哈哈哈')
+        console.log(asdad)
     },
     methods: {
-      // 上传图片
-      async confirmUpload() {
-        let formData  = new FormData();
-        this.fileList.forEach(item => {
-          formData.append('imglist[]', item.file);
+      confirmUpload() {
+        Dialog.alert({
+          width: '6rem',
+          message: '恭喜上传成功',
+          theme: 'round-button',
+          confirmButtonText: '去抽奖',
+          confirmButtonColor: '#ccc'
+        }).then(() => {
+          console.log('去抽奖');
+          this.$router.push({ path: '/luck'});
         });
-        const res = await API.uploadPics(formData);
-        let imgFiles = res.split(';');
-        if(imgFiles.length > 0) {
-          Dialog.alert({
-            width: '6rem',
-            message: '恭喜上传成功',
-            theme: 'round-button',
-            confirmButtonText: '去抽奖',
-            confirmButtonColor: '#ccc'
-          }).then(() => {
-            this.$router.push({ path: '/luck'});
-          });
-        }
       }
     }
     

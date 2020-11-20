@@ -15,6 +15,8 @@ import 'lib-flexible'
 import '@/styles/global.scss';
 import '@/styles/reset.scss';
 
+import './styles/pubRe.scss';
+
 import VConsole from 'vconsole'
 if (process.env.NODE_ENV === 'production') {
   new VConsole()
