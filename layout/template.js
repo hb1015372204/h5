@@ -16,35 +16,6 @@ if (!dirName) {
     process.exit(0)
 }
 
-
-
-/**
- * @msg: vue页面模版
- */
-const VueTep = `<template>
-  <div class="container">
-  
-  </div>
-</template>
-
-<script>
-export default {
-  created() {
-  //
-  },
-  mounted() {
-  //
-  },
-    
-}
-</script>
-
-<style lang="scss" scoped>
-</style>
-
-`
-
-
 fs.mkdirSync(`${basePath}/projects/${dirName}`) // mkdir
 process.chdir(`${basePath}/projects/${dirName}`) // cd views
 fs.writeFileSync(`App.vue`, temp.AppVueTep) // vue 
@@ -54,6 +25,6 @@ fs.mkdirSync(`${basePath}/projects/${dirName}/assets`)
 fs.mkdirSync(`${basePath}/projects/${dirName}/components`)
 fs.mkdirSync(`${basePath}/projects/${dirName}/page`)
 process.chdir(`${basePath}/projects/${dirName}/page`)
-fs.writeFileSync(`home.vue`, VueTep) 
+fs.writeFileSync(`home.vue`, temp.VueTep) 
 
 process.exit(0)

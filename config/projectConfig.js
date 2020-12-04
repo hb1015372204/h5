@@ -19,7 +19,9 @@ mainFileList.forEach(item=>{
         filename: 'index.html',
       }
     },
+    publicPaths: `/${appName}/`,
     outputDir:`dist/${appName}/`
+    // outputDir:`dist/`
   }
 })
 

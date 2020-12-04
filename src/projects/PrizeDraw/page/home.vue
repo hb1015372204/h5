@@ -1,7 +1,8 @@
 <template>
     <div class="container">
+        <img class="bgpic" src="../assets/home-bg.jpg"/>
         <div class="btn-op">
-            <p>已有<b>100009</b>人参与</p>
+            <p>已有<b>{{dogEmblemJoinNum}}</b>人参与</p>
             <div  @click="goUpload">我要上传</div>
             <div @click="goLike">我要点赞</div>
         </div>
@@ -13,11 +14,13 @@
 </template>
 
 <script>
-import relapp from '@/utils/relApp'
+import { Toast } from 'vant';
+import API from '@/api/webH5API'
+import jsApp from '@/utils/jsApp'
 export default {
     data() {
         return {
-
+            dogEmblemJoinNum: ''
         }
     },
     created() {
@@ -27,20 +30,32 @@ export default {
             icon: "havalIcon",
             iconUrl: "https://imgamp.gwm.com.cn/web/img/activity/bj-car-exhibition/share.jpg"
         }
-        relapp.appRightShare(params);
+        jsApp.appRightShare(params);
     },
     mounted() {
         console.log(dsBridge)
+        this.init();
     },
     methods: {
+        async init() {
+           const res = await API.getDogInfo();
+           if(res.errcode == '0') {
+               this.dogEmblemJoinNum = res.object.dogEmblemJoinNum;
+           }
+        },
         goUpload() {
           this.$router.push({ path: '/uploadImage'});
         },
         goLike() {
           this.$router.push({ path: '/matchList'});
         },
-        goShare() {
-            // relapp.appRightShare("haval://app/home/main");
+        async goShare() {
+           const res = await API.emblemShare();
+           if(res.errcode == '0') {
+            // jsApp.appRightShare("haval://app/home/main");
+           }else{
+                Toast.fail(res.errmsg);
+           }
         },
     }
 }
@@ -50,11 +65,17 @@ export default {
 .container{
     position: relative;
     text-align: center;
-    background: url(../assets/home-bg.jpg) no-repeat;
-    background-size: cover;
+    // background: url(../assets/home-bg.jpg) no-repeat;
+    // background-size: cover;background-attachment: fixed;
+    // padding-top: 100%;
+    .bgpic{
+        width: 100%;
+        display: block;
+
+    }
     .btn-op{
         position: absolute;
-        bottom: 10%;
+        bottom: 100px;
         left: 0;
         right: 0;
         .num{
@@ -64,7 +85,7 @@ export default {
     .box-lucky{
         position: fixed;
         right: 0;
-        top: 30%;
+        top: 200px;
         color: #fff;
     }
 }

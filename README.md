@@ -7,11 +7,13 @@ npm install
 
 ### 运行项目1
 ```
-npm run d project1
+npm run d:dev project1
+npm run d:prod project1
 ```
 ### 打包项目1
 ```
-npm run b project1
+npm run b:dev project1
+npm run b:prod project1
 ```
 ### 创建新项目文件 基本目录
 ```

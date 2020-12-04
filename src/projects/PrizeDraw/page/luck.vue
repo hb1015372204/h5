@@ -17,74 +17,83 @@
 				</div>
 			</div>
 		</div>
-		<p>今日还可抽奖{{num}}次</p>
+		<p>今日还可抽奖{{userDrawNum}}次</p>
+		<ul>
+			<li v-for="(item, index) in histList" :key="index">
+				<span>{{item.result}}</span>
+				<span>{{item.createTime.substr(0, 10)}}</span>
+			</li>
+		</ul>
 	</div>
 
   </div>
 </template>
 
 <script>
-import { Dialog } from 'vant';
+import API from '@/api/webH5API'
+import { Dialog, Toast } from 'vant';
 export default {
-    // name: "prizeDraw",
-    // metaInfo: {
-    //     title: 'prizeDraw',
-    //     meta: [
-    //       { charset: 'utf-8' },
-    //       { vmid: 'description', name: 'description', content: 'prizeDraw是描述！！！' }
-    //     ]
-    // },
     data() {
 			return {
+				userDrawNum: '',// 是否有抽奖机会
+				histList: [],
+				// HavalTea：弗茶，HandsetRadio：手台，Headrest：头枕，BaseballCap：棒球帽，T-shirt：T恤，Intergral：积分,Thanks：谢谢参与
 				prize_list: [{
 						icon: '', //require("../../../../static/WX/img/wheel_big_5.png"), // 奖品图片
 						count: 5, // 奖品级别
-						name: "五等奖", // 奖品名称
+						type: 'HavalTea', // 奖品类型
+						name: '弗茶', // 奖品名称
 						isPrize: 1 // 该奖项是否为奖品
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_2.png"),
 						count: 2,
-						name: "二等奖",
+						type: 'HandsetRadio', // 奖品类型
+						name: '手台', // 奖品名称
 						isPrize: 1
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_4.png"),
 						count: 4,
-						name: "四等奖",
+						type: 'Headrest', // 奖品类型
+						name: '头枕', // 奖品名称
 						isPrize: 1
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_1.png"),
 						count: 1,
-						name: "一等奖",
+						type: 'BaseballCap', // 奖品类型
+						name: '棒球帽', // 奖品名称
 						isPrize: 1
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_6.png"),
 						count: 6,
-						name: "六等奖",
+						type: 'T-shirt', // 奖品类型
+						name: 'T恤', // 奖品名称
 						isPrize: 1
 					},
 					{
 						count: 7,
-						name: "谢谢参与",
+						type: 'Thanks', // 奖品类型
+						name: '谢谢参与', // 奖品名称
 						isPrize: 0
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_3.png"),
 						count: 3,
-						name: "三等奖",
+						type: 'Intergral', // 奖品类型
+						name: '积分', // 奖品名称
 						isPrize: 1
 					},
 					{
 						icon: '', //require("../../../../static/WX/img/wheel_big_3.png"),
 						count: 8,
+						type: 'No', // 奖品类型
 						name: "很遗憾",
 						isPrize: 0
 					}
 				], //奖品列表
-				num: 1,
 				val: 0,
 				valindex: 0,
 				hasPrize: false, //是否中奖
@@ -98,7 +107,44 @@ export default {
 				item: {}
 			}
 		},
+		mounted() {
+			this.getDogUserDetail();
+			this.historyList();
+		},
 		methods: {
+			// 获取抽奖机会
+			async getDogUserDetail() {
+				const res = await API.getDogUserDetail();
+				if(res.errcode == '0') {
+					this.userDrawNum = res.object.draw;
+				}
+			},
+			// 抽奖
+			async rotate_handle() {
+				if(this.userDrawNum == '0') {
+					Toast.fail('您的抽奖次数已用完');
+					return;
+				}
+				const res = await API.dogDraw();
+				if(res.errcode == '0') {
+					let prize = res.object.prize;
+					this.prize_list.filter(item=>{
+						if(item.type==prize){
+							this.val = item.count;
+							this.rotating(); //开始旋转
+						}
+					})
+				}else{
+					Toast.fail(res.errmsg);
+				}
+			},
+			// 抽奖记录
+			async historyList() {
+				const res = await API.drawHistory();
+				if(res.errcode == '0') {
+					this.histList = res.list;
+				}
+			},
 			rotating(index) {
 				if (!this.click_flag) return;
 				var type = 0; // 默认为 0  转盘转动 1 箭头和转盘都转动(暂且遗留)
@@ -143,24 +189,10 @@ export default {
 							theme: 'round-button',
 							confirmButtonColor: '#ccc'
 						});
-						// that.game_over();
+						that.historyList();
 					}, during_time * 1000 + 1500); // 延时，保证转盘转完
 				} else {
 				}
-			},
-			rotate_handle() {
-				// api.activityget(param).then(res => {
-				// 	if (res.status == 200 || res.status == '200') {
-						// this.item = res.data
-						this.val = 2//res.data.rewardLevel // 获取获奖等级
-						this.rotating(); //开始旋转
-				// 	} else {
-				// 		this.$vux.alert.show({
-				// 			title: '提示',
-				// 			content: res.message,
-				// 		})
-				// 	}
-				// })
 			}
 		}
     

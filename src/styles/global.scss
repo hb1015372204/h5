@@ -6,7 +6,64 @@ html,body{
     height: 100%;
 }
 
+::-webkit-scrollbar {display: none; }
 .container{
     height: 100%;
 }
 .tcenter{text-align: center;}
+
+.mt18{margin-top: 18px;}
+.mt30{margin-top: 30px;}
+.mt45{margin-top: 45px;}
+
+.textRowOne {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis; 
+}
+.textRowTwo {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.bg-img{
+    width: 100%;
+    -webkit-user-select: none;
+    background-position: 0px 0px, 10px 10px;
+    background-size: 20px 20px;
+    cursor: zoom-out;
+}
+
+/**
+内、外边框样式 start
+*/
+.box-border{
+    flex-shrink: 0;
+    margin-right: 32px;
+    margin-bottom: 12px;
+    position: relative;
+    &:after, .box-item{
+        position: absolute;
+        border-radius: 4px;
+        border: 1px solid #6C84A8;
+        box-shadow: 0 0 4px #6C84A8;
+    }
+    &:after{
+        content: '';
+        display: block;
+        z-index: 1;
+    }
+    .box-item{
+        top: 6px;
+        left: 6px;
+        overflow: hidden;
+        z-index: 2;
+    }
+}
+/**
+内、外边框样式 end
+*/

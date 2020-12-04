@@ -15,6 +15,34 @@ exports.AppVueTep= `<template>
 </script>
 `
 
+/**
+ * @msg: vue页面模版
+ */
+const VueTep = `<template>
+  <div class="container">
+  
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      
+    }
+  },
+  mounted() {
+  //
+  },
+    
+}
+</script>
+
+<style lang="scss" scoped>
+</style>
+
+`
+
 exports.mainTep = `
 import Vue from "vue";
 import App from "./App.vue";
@@ -33,7 +61,7 @@ import '@/styles/reset.scss';
 import 'lib-flexible'
 
 import VConsole from 'vconsole'
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   new VConsole()
 }
 
@@ -44,6 +72,7 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 `
+
 exports.routerTep = `
 import Vue from "vue";
 import Router from "vue-router";

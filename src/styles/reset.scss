@@ -12,4 +12,26 @@
 .van-overlay{
     background-color: rgba(0,0,0,.3);
 }
-// 弹窗样式 start
+// 弹窗样式 end
+
+// swipper 滑块样式 start
+.swiper-container .swiper-scrollbar{
+    width: 200px;
+    border-radius: 1px;
+    height: 2px;
+    background-color: #148BE1;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: inherit;
+}
+.swiper-pagination-progress .swiper-pagination-progressbar{
+    background-color: #fff;
+}
+.swiper-scrollbar-drag{background-color: #fff;}
+// swipper 滑块样式 end
+
+.van-overlay{
+    background-color: rgba(0, 0, 0, 0.9);
+}
